@@ -1,5 +1,5 @@
 # Importez les classes définies dans le dépôt
-from Ticker import Ticker
+from ticker import Ticker
 
 
 #ticker = "AAPL"

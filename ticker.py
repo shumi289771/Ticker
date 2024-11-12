@@ -42,7 +42,7 @@ class Ticker:
         print("Prédictions réalisées")
 
     def display_data(self):
-        self.data.head(5)
+        print(self.data.head(5))
 
     def display_scaler(self):
         self.scaler.head(5)
