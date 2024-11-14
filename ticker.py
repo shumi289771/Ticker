@@ -4,7 +4,7 @@ from ta import add_all_ta_features
 from ta.utils import dropna
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
-
+#toto
 class Ticker:
     def __init__(self, ticker):
         self.ticker = ticker            # nom de la valeur boursiere, de la crypto, ...
