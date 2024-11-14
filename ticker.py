@@ -19,8 +19,10 @@ class Ticker:
         if self.data.empty:
             raise ValueError(f"Aucune donnée disponible pour le ticker '{self.ticker}'")
         print("Données récupérées avec succès")
+        self.__calculate_indicators()
 
-    def calculate_indicators(self):
+
+    def __calculate_indicators(self):
         # Clean NaN values
         self.data.dropna(inplace=True)
         self.data = add_all_ta_features(self.data, 
@@ -28,8 +30,6 @@ class Ticker:
                                         fillna=True)
         self.data.dropna(inplace=True)
         print("Indicateurs calculés")
-
-
 
     def save_data(self):
         self.data.to_csv(self.filename)

@@ -13,10 +13,10 @@ class Model:
 
     def __normalize_data(self):
         if self.indicators_to_scale == []:
-            self.normalized[self.ticker_data.columns] = self.scaler.fit_transform(self.ticker_data.columns)
+            self.normalized_data[self.ticker_data.columns] = self.scaler.fit_transform(self.ticker_data[self.ticker_data.columns])
         else:
-            self.normalized[self.indicators_to_scale] = self.scaler.fit_transform(self.indicators_to_scale)
-        
+            self.normalized_data[self.indicators_to_scale] = self.scaler.fit_transform(self.ticker_data[self.indicators_to_scale])
+
         print("Données normalisées")
 
     def new_normalize_data(self, indicators_to_scale):
@@ -24,8 +24,8 @@ class Model:
         self.__normalize_data()
 
     def display(self):
-        print("scaler : " + self.scaler )
-        print("indocator to scale : " + self.scale)
+        print("scaler : ", self.scaler )
+        print("indicator to scale : ", self.indicators_to_scale)
         print("ticker data : ")
         print(self.ticker_data.head(5))
         print("normelized data")
