@@ -1,6 +1,7 @@
 
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 class Model:
@@ -12,9 +13,22 @@ class Model:
         self.time_step = time_step              #taille de la fenetre de calcul des données d'entrainement
         self.X = []
         self.y = []
+        self.X_train = []
+        self.X_test = []
+        self.y_train = []
+        self.y_test = []
         self.__normalize_data()
         self.__build_window()
+        self.__build_train_test_data()
 
+    def __build_train_test_data(self):
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X,
+                                                                        self.y,
+                                                                        test_size=0.2,
+                                                                        shuffle = False)
+
+        print("data train and test ok")
+        
     def __build_window(self):
         for i in range(len(self.normalized_data) - self.time_step - 1):
             if self.indicators_to_scale == []:
@@ -23,6 +37,7 @@ class Model:
                 self.X.append(self.normalized_data[i : (i + self.time_step)][self.indicators_to_scale])
             self.y.append(self.normalized_data[i + self.time_step : i + self.time_step + 1]['Close'])
 
+        print("window ok")
         
     def __normalize_data(self):
         if self.indicators_to_scale == []:
@@ -44,8 +59,12 @@ class Model:
         print("normelized data")
         print(self.normalized_data.head(5))
         print("window (", self.time_step, ") : ")
-        for i in range(len(self.X)):
-            print("Window : ", i)
-            print("X : ", self.X[i]['Close'], " ====> y : ", self.y[i].values[0])
+        #for i in range(len(self.X)):
+        #    print("Window : ", i)
+        #    print("X : ", self.X[i]['Close'], " ====> y : ", self.y[i].values[0])
+        print("X_train : ", len(self.X_train), " windows de (", self.time_step, ") éléments")
+        print("y_train : ", len(self.y_train))
+        print("X_test : ", len(self.X_test), " windows de (", self.time_step, ") éléments")
+        print("y_test : ", len(self.y_test))
 
            
